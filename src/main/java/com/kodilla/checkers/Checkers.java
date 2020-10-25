@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 import static javafx.scene.paint.RadialGradient.valueOf;
 
-public class Checkers extends Application implements EventHandler<ActionEvent> {
+public class Checkers extends Application /*implements EventHandler<ActionEvent>*/ {
 
     // Define these for adding additional functionality (Different game types with different board size)
     public static final int tileSize = 100;
@@ -148,20 +148,20 @@ public class Checkers extends Application implements EventHandler<ActionEvent> {
         Background background = new Background(backgroundImage);
         grid.setAlignment(Pos.CENTER);
         grid.setBackground(background);
-        Button button = new Button("Change game mode to 10x10");
-        button.setOnAction(this);
+        /*Button button = new Button("Change game mode to 10x10");
+        button.setOnAction(this);*/
 
         Scene scene = new Scene(createcontent(grid),1000, 1000);
-        grid.getChildren().add(button);
-
+        /*grid.getChildren().add(button);
+*/
         primaryStage.setTitle("Checkers");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    @Override
+    /*@Override
     public void handle(ActionEvent event) {
         width = 10;
         height = 10;
         Scene scene = new Scene(createcontent(grid), 1000, 1000);
-    }
+    }*/
 }
