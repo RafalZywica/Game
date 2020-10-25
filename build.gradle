@@ -15,4 +15,4 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
-mainClassName = 'com.kodilla.blackjack.Blackjack'
+mainClassName = 'com.kodilla.checkers.Checkers'
