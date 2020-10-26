@@ -2,9 +2,6 @@ package com.kodilla.tictactoe;
 
 import com.kodilla.tictactoe.components.Combination;
 import com.kodilla.tictactoe.components.Tile;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -13,10 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -27,6 +21,7 @@ public class TicTacToe extends Application {
 
     public static final int tileSize = 200, width = 3, height = 3;
     public static boolean playerXTurn = true, playable =true;
+    public static int numberOfMoves = 0;
 
     private Image imageback = new Image("file:src/main/resources/TicTacToeTexture.png");
     private Group tileGroup = new Group();
@@ -34,6 +29,7 @@ public class TicTacToe extends Application {
     private static GridPane root = new GridPane();
     private Tile[][] board = new Tile[3][3];
     private static List<Combination> combinations = new ArrayList<>();
+    private static List<Tile> tilesList = new ArrayList<>();
 
     private Parent createContent() {
 
@@ -48,6 +44,7 @@ public class TicTacToe extends Application {
                 tile.setTranslateY(j * tileSize);
 
                 tileGroup.getChildren().add(tile);
+                tilesList.add(tile);
 
                 board[i][j] = tile;
 
@@ -76,6 +73,12 @@ public class TicTacToe extends Application {
                 break;
             }
         }
+        for (Combination combination: combinations) {
+            if (numberOfMoves == 9 && playable == true) {
+                playDrawAnimation(combination);
+                break;
+            }
+        }
     }
     private static void playWinAnimation(Combination combination) {
         /*Line line = new Line();
@@ -90,15 +93,18 @@ public class TicTacToe extends Application {
         Text winning = new Text();
         winning.setFont(Font.font(200));
         winning.setY(200);
-        winning.setFill(Color.BLUE);
         winning.setStroke(Color.BLACK);
         winning.setStrokeWidth(5);
 
         if (combination.getTiles()[0].getValue() == "X") {
             winning.setText("X Wins");
-        } else {
+            winning.setFill(Color.GREEN);
+        } else if (combination.getTiles()[0].getValue() == "O"){
             winning.setText("O Wins");
+            winning.setFill(Color.RED);
         }
+        System.out.println(numberOfMoves);
+
 
         root.add(winning,0, 0);
         /*root.add(line, 0, 1);
@@ -109,14 +115,25 @@ public class TicTacToe extends Application {
                 new KeyValue(line.endXProperty(), combination.getTiles()[2].getCenterX()),
                 new KeyValue(line.endYProperty(), combination.getTiles()[2].getCenterY())));
         timeline.play();*/
-
-
+    }
+    private static void playDrawAnimation(Combination combination) {
+        Text drawing= new Text();
+        drawing.setFont(Font.font(200));
+        drawing.setY(200);
+        drawing.setFill(Color.BLUE);
+        drawing.setStroke(Color.BLACK);
+        drawing.setStrokeWidth(5);
+        drawing.setText("DRAW");
+        root.add(drawing,0, 0);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
-        BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        BackgroundSize backgroundSize =
+                new BackgroundSize(100, 100, true, true, true, false);
+        BackgroundImage backgroundImage =
+                new BackgroundImage(imageback, BackgroundRepeat.REPEAT,
+                        BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
         root.setBackground(background);
@@ -128,6 +145,4 @@ public class TicTacToe extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-
 }

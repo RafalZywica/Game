@@ -40,6 +40,7 @@ public class Tile extends StackPane {
 
                 drawX();
                 TicTacToe.playerXTurn = false;
+                TicTacToe.numberOfMoves++;
                 TicTacToe.checkState();
 
             } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -48,6 +49,7 @@ public class Tile extends StackPane {
 
                 drawO();
                 TicTacToe.playerXTurn = true;
+                TicTacToe.numberOfMoves++;
                 TicTacToe.checkState();
             }
         });
@@ -64,8 +66,10 @@ public class Tile extends StackPane {
     }
     private void drawX() {
         text.setText("X");
+        text.setFill(Color.GREEN);
     }
     private void drawO() {
         text.setText("O");
+        text.setFill(Color.RED);
     }
 }
