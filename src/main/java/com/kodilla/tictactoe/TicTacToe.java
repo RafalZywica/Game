@@ -186,12 +186,9 @@ public class TicTacToe extends Application {
         changeSidesButton.setOnAction(value -> {
             if (playerOneIsX == true) {
                 playerOneIsX = false;
-            } else {
-                playerOneIsX = true;
-            }
-            if (playerOneIsX) {
                 playerSide = "X";
             } else {
+                playerOneIsX = true;
                 playerSide = "O";
             }
             whichSideIsPlayerOn.setText("You are playing " + playerSide);
@@ -200,6 +197,9 @@ public class TicTacToe extends Application {
             System.out.println("");
 
             if (!playerOneIsX && playerXTurn) {
+                botMoves();
+            }
+            if (playerOneIsX && !playerXTurn) {
                 botMoves();
             }
 
