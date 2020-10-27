@@ -208,6 +208,7 @@ public class TicTacToe extends Application {
         });
 
         buttonBox.getChildren().addAll(newGameButton, changeSidesButton);
+        buttonBox.setAlignment(Pos.CENTER);
 
         root.add(buttonBox, 2, 1);
 
