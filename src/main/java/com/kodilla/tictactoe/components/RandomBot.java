@@ -1,10 +1,8 @@
 package com.kodilla.tictactoe.components;
 
 import com.kodilla.tictactoe.TicTacToe;
-import com.kodilla.tictactoe.components.Tile;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -28,10 +26,10 @@ Random rand = new Random();
             int r = rand.nextInt(k.size());
             System.out.println("random " + r);
             System.out.println("random position" + k.get(r));
-            if (TicTacToe.playerXTurn)
+            if (TicTacToe.playerOneTurn)
                 return;
             ((Tile) TicTacToe.tileGroup.getChildren().get(k.get(r))).drawO();
-            TicTacToe.playerXTurn = true;
+            TicTacToe.playerOneTurn = true;
             TicTacToe.numberOfMoves++;
             TicTacToe.checkState();
 

@@ -21,7 +21,7 @@ import java.util.List;
 public class TicTacToe extends Application {
 
     public static final int tileSize = 200, width = 3, height = 3;
-    public static boolean playerXTurn = true, playable =true;
+    public static boolean playerOneTurn = true, playable =true;
     public static int numberOfMoves = 0;
 
     private Image imageback = new Image("file:src/main/resources/TicTacToeTexture.png");

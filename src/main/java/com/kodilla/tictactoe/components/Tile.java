@@ -35,16 +35,16 @@ public class Tile extends StackPane {
             if (!TicTacToe.playable)
                 return;
             if (event.getButton() == MouseButton.PRIMARY) {
-                if (!TicTacToe.playerXTurn || !text.getText().isEmpty())
+                if (!TicTacToe.playerOneTurn || !text.getText().isEmpty())
                     return;
 
                 drawX();
-                TicTacToe.playerXTurn = false;
+                TicTacToe.playerOneTurn = false;
                 TicTacToe.numberOfMoves++;
                 TicTacToe.checkState();
                 TicTacToe.botMoves();
 
-            } else if (event.getButton() == MouseButton.SECONDARY) {
+            } /*else if (event.getButton() == MouseButton.SECONDARY) {
                 if (TicTacToe.playerXTurn ||!text.getText().isEmpty())
                     return;
 
@@ -52,7 +52,7 @@ public class Tile extends StackPane {
                 TicTacToe.playerXTurn = true;
                 TicTacToe.numberOfMoves++;
                 TicTacToe.checkState();
-            }
+            }*/
         });
 
     }
@@ -60,7 +60,7 @@ public class Tile extends StackPane {
         return text.getText();
     }
     public Double getCenterX() {
-        return getTranslateX() + 50;
+        return getTranslateX();
     }
     public Double getCenterY() {
         return getTranslateY();
