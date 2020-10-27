@@ -11,17 +11,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class Tile extends StackPane {
-    private Text text = new Text();
+    private final Text text = new Text();
 
-    public Text getText() {
-        return text;
-    }
-
-    public void setText(Text text) {
-        this.text = text;
-    }
-
-    public Tile(int x, int y) {
+    public Tile() {
         Rectangle border = new Rectangle(TicTacToe.tileSize, TicTacToe.tileSize);
 
         border.setStroke(Color.BLACK);
@@ -58,25 +50,22 @@ public class Tile extends StackPane {
                 TicTacToe.checkState();
             }*/
         });
-
     }
+
     public String getValue() {
         return text.getText();
     }
-    public Double getCenterX() {
-        return getTranslateX();
-    }
-    public Double getCenterY() {
-        return getTranslateY();
-    }
+
     public void drawX() {
         text.setText("X");
         text.setFill(Color.GREEN);
     }
+
     public void drawO() {
         text.setText("O");
         text.setFill(Color.RED);
     }
+
     public void cleanTile() {
         text.setText("");
     }

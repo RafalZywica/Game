@@ -1,8 +1,9 @@
 package com.kodilla.tictactoe.components;
 
 public class Combination {
-    private Tile[] tiles;
-    public Combination(Tile...tiles){
+    private final Tile[] tiles;
+
+    public Combination(Tile... tiles) {
         this.tiles = tiles;
     }
 
