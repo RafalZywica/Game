@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.control.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,15 @@ import java.util.List;
 public class TicTacToe extends Application {
 
     public static final int tileSize = 200, width = 3, height = 3;
-    public static boolean playerOneTurn = true, playable =true;
+    public static boolean playerXTurn = true, playable = true, playerOneIsX = true;
     public static int numberOfMoves = 0;
-
+    private static String playerSide = new String("X");
+    private static Text whichSideIsPlayerOn = new Text("You are playing " + playerSide);
+    private static Text winning = new Text(null);
+    private static Text drawing = new Text();
     private Image imageback = new Image("file:src/main/resources/TicTacToeTexture.png");
     public static Group tileGroup = new Group();
+    private VBox buttonBox = new VBox(5);
     private static GridPane root = new GridPane();
     public static Tile[][] board = new Tile[3][3];
     private static List<Combination> combinations = new ArrayList<>();
@@ -34,7 +39,7 @@ public class TicTacToe extends Application {
     private Parent createContent() {
 
         root.setPrefSize(width *tileSize, height * tileSize);
-        root.add(tileGroup, 0, 1);
+        root.add(tileGroup, 1, 1);
 
         for (int j = 0; j < height; j++) {
             for (int i = 0; i < width; i++) {
@@ -89,7 +94,6 @@ public class TicTacToe extends Application {
 
         System.out.println(combination.getTiles()[0].getValue());
 
-        Text winning = new Text();
         winning.setFont(Font.font(200));
         winning.setY(200);
         winning.setStroke(Color.BLACK);
@@ -105,7 +109,7 @@ public class TicTacToe extends Application {
         System.out.println(numberOfMoves);
 
 
-        root.add(winning,0, 0);
+        root.add(winning,1, 0);
         /*root.add(line, 0, 1);
 
         Timeline timeline = new Timeline();
@@ -116,14 +120,14 @@ public class TicTacToe extends Application {
         timeline.play();*/
     }
     private static void playDrawAnimation(Combination combination) {
-        Text drawing= new Text();
+
         drawing.setFont(Font.font(200));
         drawing.setY(200);
         drawing.setFill(Color.BLUE);
         drawing.setStroke(Color.BLACK);
         drawing.setStrokeWidth(5);
         drawing.setText("DRAW");
-        root.add(drawing,0, 0);
+        root.add(drawing,1, 0);
     }
     public static void botMoves() {
         RandomBot randomBot = new RandomBot();
@@ -142,8 +146,72 @@ public class TicTacToe extends Application {
 
         root.setBackground(background);
         root.setAlignment(Pos.CENTER);
+        root.setVgap(10);
+        root.setHgap(10);
 
-        Scene scene = new Scene(createContent(), 1000, 1000);
+        whichSideIsPlayerOn.setFont(Font.font(50));
+
+        root.add(whichSideIsPlayerOn, 0, 1);
+
+        Button newGameButton = new Button("New Game");
+        newGameButton.setFont(Font.font(20));
+        newGameButton.setOnAction(value -> {
+            /*if (playerOneIsX == true) {
+                playerXTurn = true;
+            } else {
+                playerXTurn =false;
+            }*/
+            playerXTurn = true;
+            playable = true;
+            numberOfMoves = 0;
+            winning.setText(null);
+            drawing.setText(null);
+            for (int i = 0; i < 9; i++){
+                ((Tile) TicTacToe.tileGroup.getChildren().get(i)).cleanTile();
+            }
+
+            System.out.println("NGB playerXturn before botMoves " + playerXTurn);
+            System.out.println("NGB playerSide before botMoves " + playerSide);
+
+            if (!playerOneIsX) {
+                botMoves();
+            }
+            System.out.println("NGB playerXturn after botMoves " + playerXTurn);
+            System.out.println("NGB playerSide after botMoves " + playerSide);
+            System.out.println("");
+        });
+
+        Button changeSidesButton = new Button("Change Sides");
+        changeSidesButton.setFont(Font.font(20));
+        changeSidesButton.setOnAction(value -> {
+            if (playerOneIsX == true) {
+                playerOneIsX = false;
+            } else {
+                playerOneIsX = true;
+            }
+            if (playerOneIsX) {
+                playerSide = "X";
+            } else {
+                playerSide = "O";
+            }
+            whichSideIsPlayerOn.setText("You are playing " + playerSide);
+            System.out.println("CSB playerXturn before botMoves " + playerXTurn);
+            System.out.println("CSB playerSide before botMoves " + playerSide);
+            System.out.println("");
+
+            if (!playerOneIsX && playerXTurn) {
+                botMoves();
+            }
+
+            System.out.println("CSB playerXturn after botMoves " + playerXTurn);
+            System.out.println("CSB playerSide after botMoves " + playerSide);
+        });
+
+        buttonBox.getChildren().addAll(newGameButton, changeSidesButton);
+
+        root.add(buttonBox, 2, 1);
+
+        Scene scene = new Scene(createContent(), 1600, 1200);
 
         primaryStage.setTitle("TicTacToe");
         primaryStage.setScene(scene);
