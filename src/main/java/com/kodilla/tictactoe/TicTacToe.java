@@ -1,6 +1,7 @@
 package com.kodilla.tictactoe;
 
 import com.kodilla.tictactoe.components.Combination;
+import com.kodilla.tictactoe.components.RandomBot;
 import com.kodilla.tictactoe.components.Tile;
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -24,18 +25,16 @@ public class TicTacToe extends Application {
     public static int numberOfMoves = 0;
 
     private Image imageback = new Image("file:src/main/resources/TicTacToeTexture.png");
-    private Group tileGroup = new Group();
-    private Group pieceGroup = new Group();
+    public static Group tileGroup = new Group();
     private static GridPane root = new GridPane();
-    private Tile[][] board = new Tile[3][3];
+    public static Tile[][] board = new Tile[3][3];
     private static List<Combination> combinations = new ArrayList<>();
-    private static List<Tile> tilesList = new ArrayList<>();
+    public static List<Tile> tilesList = new ArrayList<>();
 
     private Parent createContent() {
 
         root.setPrefSize(width *tileSize, height * tileSize);
         root.add(tileGroup, 0, 1);
-        root.add(pieceGroup, 0,1);
 
         for (int j = 0; j < height; j++) {
             for (int i = 0; i < width; i++) {
@@ -125,6 +124,11 @@ public class TicTacToe extends Application {
         drawing.setStrokeWidth(5);
         drawing.setText("DRAW");
         root.add(drawing,0, 0);
+    }
+    public static void botMoves() {
+        RandomBot randomBot = new RandomBot();
+        randomBot.botPlay();
+
     }
 
     @Override

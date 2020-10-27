@@ -42,6 +42,7 @@ public class Tile extends StackPane {
                 TicTacToe.playerXTurn = false;
                 TicTacToe.numberOfMoves++;
                 TicTacToe.checkState();
+                TicTacToe.botMoves();
 
             } else if (event.getButton() == MouseButton.SECONDARY) {
                 if (TicTacToe.playerXTurn ||!text.getText().isEmpty())
@@ -68,7 +69,7 @@ public class Tile extends StackPane {
         text.setText("X");
         text.setFill(Color.GREEN);
     }
-    private void drawO() {
+    public void drawO() {
         text.setText("O");
         text.setFill(Color.RED);
     }
