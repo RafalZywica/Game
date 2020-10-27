@@ -133,17 +133,14 @@ public class TicTacToe extends Application {
         ROOT.setVgap(10);
         ROOT.setHgap(10);
 
-        WHICH_SIDE_IS_PLAYER_ON.setStroke(Color.BLACK);
-        WHICH_SIDE_IS_PLAYER_ON.setStrokeWidth(1);
-        WHICH_SIDE_IS_PLAYER_ON.setFill(Color.WHITE);
-        WHICH_SIDE_IS_PLAYER_ON.setFont(Font.font(50));
-
-        ROOT.add(WHICH_SIDE_IS_PLAYER_ON, 0, 1);
+        WHICH_SIDE_IS_PLAYER_ON_CONFIG();
 
         Button newGameButton = new Button("New Game");
         newGameButtonMethod(newGameButton);
+
         Button changeSidesButton = new Button("Change Sides");
         changeSidesButtonMethod(changeSidesButton);
+
         buttonBox.getChildren().addAll(newGameButton, changeSidesButton);
         buttonBox.setAlignment(Pos.CENTER);
 
@@ -154,6 +151,15 @@ public class TicTacToe extends Application {
         primaryStage.setTitle("TicTacToe");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void WHICH_SIDE_IS_PLAYER_ON_CONFIG() {
+        WHICH_SIDE_IS_PLAYER_ON.setStroke(Color.BLACK);
+        WHICH_SIDE_IS_PLAYER_ON.setStrokeWidth(1);
+        WHICH_SIDE_IS_PLAYER_ON.setFill(Color.WHITE);
+        WHICH_SIDE_IS_PLAYER_ON.setFont(Font.font(50));
+
+        ROOT.add(WHICH_SIDE_IS_PLAYER_ON, 0, 1);
     }
 
     private void changeSidesButtonMethod(Button changeSidesButton) {

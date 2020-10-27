@@ -2,19 +2,13 @@ package com.kodilla.checkers;
 
 import com.kodilla.checkers.components.*;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import static javafx.scene.paint.RadialGradient.valueOf;
 
 public class Checkers extends Application /*implements EventHandler<ActionEvent>*/ {
 
@@ -33,10 +27,10 @@ public class Checkers extends Application /*implements EventHandler<ActionEvent>
     private Parent createcontent(GridPane grid) {
 
         grid.setPrefSize(tileSize * width, tileSize * height);
-        grid.getChildren().addAll(tileGroup ,checkerGroup);
+        grid.getChildren().addAll(tileGroup, checkerGroup);
 
         for (int i = 0; i < width; i++) {
-            for (int j = 0; j< height; j++) {
+            for (int j = 0; j < height; j++) {
                 Tile tile = new Tile((i + j) % 2 == 0, i, j);
                 board[i][j] = tile;
 
@@ -86,7 +80,7 @@ public class Checkers extends Application /*implements EventHandler<ActionEvent>
 
                 case NORMAL:
 
-                    checker.move(finalX,finalY);
+                    checker.move(finalX, finalY);
                     board[x0][y0].setChecker(null);
                     board[finalX][finalY].setChecker(checker);
 
@@ -94,7 +88,7 @@ public class Checkers extends Application /*implements EventHandler<ActionEvent>
 
                 case KILL:
 
-                    checker.move(finalX,finalY);
+                    checker.move(finalX, finalY);
                     board[x0][y0].setChecker(null);
                     board[finalX][finalY].setChecker(checker);
 
@@ -133,7 +127,7 @@ public class Checkers extends Application /*implements EventHandler<ActionEvent>
     }
 
     private int toBoard(double pixel) {
-        return (int)(pixel + tileSize / 2) / tileSize;
+        return (int) (pixel + tileSize / 2) / tileSize;
     }
 
     public static void main(String[] args) {
@@ -151,9 +145,9 @@ public class Checkers extends Application /*implements EventHandler<ActionEvent>
         /*Button button = new Button("Change game mode to 10x10");
         button.setOnAction(this);*/
 
-        Scene scene = new Scene(createcontent(grid),1000, 1000);
+        Scene scene = new Scene(createcontent(grid), 1000, 1000);
         /*grid.getChildren().add(button);
-*/
+         */
         primaryStage.setTitle("Checkers");
         primaryStage.setScene(scene);
         primaryStage.show();
