@@ -1,6 +1,7 @@
 package com.kodilla.tictactoe.components;
 
 import com.kodilla.tictactoe.TicTacToe;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,9 +9,6 @@ import java.util.Random;
 public class RandomBot {
     List<Integer> possibleMovesLocations = new ArrayList<>();
     Random random = new Random();
-
-    public RandomBot() {
-    }
 
     public void botPlay() {
         for (int i = 0; i < 9; i++) {
