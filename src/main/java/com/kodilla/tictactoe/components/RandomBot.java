@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomBot {
-    List<Integer> possibleMovesLocations = new ArrayList<>();
-    Random random = new Random();
+    private final List<Integer> possibleMovesLocations = new ArrayList<>();
+    private static final Random random = new Random();
 
     public void botPlay() {
         for (int i = 0; i < 9; i++) {
@@ -23,12 +23,14 @@ public class RandomBot {
             if (!TicTacToe.playerXTurn && TicTacToe.playerOneIsX) {
                 ((Tile) TicTacToe.tileGroup.getChildren().get(possibleMovesLocations.get(randomPossibleMovePosition))).drawO();
                 TicTacToe.playerXTurn = true;
+                TicTacToe.numberOfMoves ++;
             } else if (TicTacToe.playerXTurn && !TicTacToe.playerOneIsX) {
                 ((Tile) TicTacToe.tileGroup.getChildren().get(possibleMovesLocations.get(randomPossibleMovePosition))).drawX();
                 TicTacToe.playerXTurn = false;
+                TicTacToe.numberOfMoves ++;
             }
-            TicTacToe.numberOfMoves++;
             TicTacToe.checkState();
+
         }
     }
 }

@@ -31,16 +31,21 @@ public class Tile extends StackPane {
                 return;
             if (event.getButton() == MouseButton.PRIMARY) {
                 if (TicTacToe.playerXTurn && text.getText().isEmpty() && TicTacToe.playerOneIsX) {
+                    TicTacToe.numberOfMoves++;
                     drawX();
                     TicTacToe.playerXTurn = false;
                 } else if (!TicTacToe.playerXTurn && text.getText().isEmpty() && !TicTacToe.playerOneIsX) {
+                    TicTacToe.numberOfMoves++;
                     drawO();
                     TicTacToe.playerXTurn = true;
                 }
-                TicTacToe.numberOfMoves++;
+
                 TicTacToe.checkState();
                 TicTacToe.botMoves();
-            } /*else if (event.getButton() == MouseButton.SECONDARY) {
+                System.out.println(TicTacToe.numberOfMoves);
+            }
+
+            /*else if (event.getButton() == MouseButton.SECONDARY) {
                 if (TicTacToe.playerXTurn ||!text.getText().isEmpty())
                     return;
 

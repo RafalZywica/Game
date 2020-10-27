@@ -32,7 +32,7 @@ public class TicTacToe extends Application {
     private static final Text WHICH_SIDE_IS_PLAYER_ON = new Text("You are playing as " + playerSide);
     private static final Text WINNING = new Text();
     private static final Text DRAWING = new Text();
-    private final Image imageback = new Image("file:src/main/resources/TicTacToeTexture.png");
+    private final Image imageBack = new Image("file:src/main/resources/TicTacToeTexture.png");
     public static Group tileGroup = new Group();
     private final VBox buttonBox = new VBox(5);
     private static final GridPane ROOT = new GridPane();
@@ -98,7 +98,6 @@ public class TicTacToe extends Application {
             WINNING.setText("O Wins");
             WINNING.setFill(Color.RED);
         }
-        System.out.println(numberOfMoves);
 
         ROOT.add(WINNING, 1, 0);
 
@@ -124,7 +123,7 @@ public class TicTacToe extends Application {
         BackgroundSize backgroundSize =
                 new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImage =
-                new BackgroundImage(imageback, BackgroundRepeat.REPEAT,
+                new BackgroundImage(imageBack, BackgroundRepeat.REPEAT,
                         BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
@@ -191,8 +190,7 @@ public class TicTacToe extends Application {
             playerXTurn = true;
             playable = true;
             numberOfMoves = 0;
-            WINNING.setText(null);
-            DRAWING.setText(null);
+            ROOT.getChildren().removeAll(WINNING, DRAWING);
             for (int i = 0; i < 9; i++) {
                 ((Tile) TicTacToe.tileGroup.getChildren().get(i)).cleanTile();
             }
