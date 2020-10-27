@@ -26,7 +26,10 @@ public class Tile extends StackPane {
 
         border.setStroke(Color.BLACK);
         border.setFill(Color.WHITE);
+        border.setStrokeWidth(5);
         text.setFont(Font.font(200));
+        text.setStroke(Color.BLACK);
+        text.setStrokeWidth(2);
         setAlignment(Pos.CENTER);
         getChildren().addAll(border, text);
 

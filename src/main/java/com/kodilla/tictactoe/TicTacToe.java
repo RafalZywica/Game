@@ -3,6 +3,9 @@ package com.kodilla.tictactoe;
 import com.kodilla.tictactoe.components.Combination;
 import com.kodilla.tictactoe.components.RandomBot;
 import com.kodilla.tictactoe.components.Tile;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -11,10 +14,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,12 +90,6 @@ public class TicTacToe extends Application {
         }
     }
     private static void playWinAnimation(Combination combination) {
-        /*Line line = new Line();
-        line.setStrokeWidth(5);
-        line.setStartX(combination.getTiles()[0].getCenterX());
-        line.setStartY(combination.getTiles()[0].getCenterY());
-        line.setEndX(combination.getTiles()[0].getCenterX());
-        line.setEndY(combination.getTiles()[0].getCenterY());*/
 
         System.out.println(combination.getTiles()[0].getValue());
 
@@ -108,16 +107,8 @@ public class TicTacToe extends Application {
         }
         System.out.println(numberOfMoves);
 
-
         root.add(winning,1, 0);
-        /*root.add(line, 0, 1);
 
-        Timeline timeline = new Timeline();
-
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),
-                new KeyValue(line.endXProperty(), combination.getTiles()[2].getCenterX()),
-                new KeyValue(line.endYProperty(), combination.getTiles()[2].getCenterY())));
-        timeline.play();*/
     }
     private static void playDrawAnimation(Combination combination) {
 
@@ -149,6 +140,9 @@ public class TicTacToe extends Application {
         root.setVgap(10);
         root.setHgap(10);
 
+        whichSideIsPlayerOn.setStroke(Color.BLACK);
+        whichSideIsPlayerOn.setStrokeWidth(1);
+        whichSideIsPlayerOn.setFill(Color.WHITE);
         whichSideIsPlayerOn.setFont(Font.font(50));
 
         root.add(whichSideIsPlayerOn, 0, 1);
