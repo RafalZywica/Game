@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomBot {
-    List<Integer> k = new ArrayList<>();
-    Random rand = new Random();
+    List<Integer> possibleMovesLocations = new ArrayList<>();
+    Random random = new Random();
 
     public RandomBot() {
     }
@@ -17,16 +17,17 @@ public class RandomBot {
         for (int i = 0; i < 9; i++) {
             if (!((Tile) TicTacToe.tileGroup.getChildren().get(i)).getValue().equals("X")
                     && !((Tile) TicTacToe.tileGroup.getChildren().get(i)).getValue().equals("O")) {
-                k.add(i);
+                possibleMovesLocations.add(i);
             }
         }
-        if (k.size() != 0 && TicTacToe.playable) {
-            int r = rand.nextInt(k.size());
+        if (possibleMovesLocations.size() != 0 && TicTacToe.playable) {
+            int randomPossibleMovePosition
+                    = random.nextInt(possibleMovesLocations.size());
             if (!TicTacToe.playerXTurn && TicTacToe.playerOneIsX) {
-                ((Tile) TicTacToe.tileGroup.getChildren().get(k.get(r))).drawO();
+                ((Tile) TicTacToe.tileGroup.getChildren().get(possibleMovesLocations.get(randomPossibleMovePosition))).drawO();
                 TicTacToe.playerXTurn = true;
             } else if (TicTacToe.playerXTurn && !TicTacToe.playerOneIsX) {
-                ((Tile) TicTacToe.tileGroup.getChildren().get(k.get(r))).drawX();
+                ((Tile) TicTacToe.tileGroup.getChildren().get(possibleMovesLocations.get(randomPossibleMovePosition))).drawX();
                 TicTacToe.playerXTurn = false;
             }
             TicTacToe.numberOfMoves++;

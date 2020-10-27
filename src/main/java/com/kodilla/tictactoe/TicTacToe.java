@@ -21,34 +21,34 @@ import java.util.List;
 
 public class TicTacToe extends Application {
 
-    public static final int tileSize = 200;
-    public static final int width = 3;
-    public static final int height = 3;
+    public static final int TILE_SIZE = 200;
+    public static final int WIDTH = 3;
+    public static final int HEIGHT = 3;
     public static boolean playerXTurn = true;
     public static boolean playable = true;
     public static boolean playerOneIsX = true;
     public static int numberOfMoves = 0;
     private static String playerSide = "X";
-    private static final Text whichSideIsPlayerOn = new Text("You are playing as " + playerSide);
-    private static final Text winning = new Text();
-    private static final Text drawing = new Text();
+    private static final Text WHICH_SIDE_IS_PLAYER_ON = new Text("You are playing as " + playerSide);
+    private static final Text WINNING = new Text();
+    private static final Text DRAWING = new Text();
     private final Image imageback = new Image("file:src/main/resources/TicTacToeTexture.png");
     public static Group tileGroup = new Group();
     private final VBox buttonBox = new VBox(5);
-    private static final GridPane root = new GridPane();
+    private static final GridPane ROOT = new GridPane();
     public static Tile[][] board = new Tile[3][3];
-    private static final List<Combination> combinations = new ArrayList<>();
+    private static final List<Combination> COMBINATION_ARRAY_LIST = new ArrayList<>();
     public static List<Tile> tilesList = new ArrayList<>();
 
     private Parent createContent() {
-        root.setPrefSize(width * tileSize, height * tileSize);
-        root.add(tileGroup, 1, 1);
+        ROOT.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+        ROOT.add(tileGroup, 1, 1);
 
-        for (int j = 0; j < height; j++) {
-            for (int i = 0; i < width; i++) {
+        for (int j = 0; j < HEIGHT; j++) {
+            for (int i = 0; i < WIDTH; i++) {
                 Tile tile = new Tile();
-                tile.setTranslateX(i * tileSize);
-                tile.setTranslateY(j * tileSize);
+                tile.setTranslateX(i * TILE_SIZE);
+                tile.setTranslateY(j * TILE_SIZE);
 
                 tileGroup.getChildren().add(tile);
                 tilesList.add(tile);
@@ -57,15 +57,15 @@ public class TicTacToe extends Application {
             }
         }
         for (int y = 0; y < 3; y++) {
-            combinations.add(new Combination(board[0][y], board[1][y], board[2][y]));
+            COMBINATION_ARRAY_LIST.add(new Combination(board[0][y], board[1][y], board[2][y]));
         }
         for (int x = 0; x < 3; x++) {
-            combinations.add(new Combination(board[x][0], board[x][1], board[x][2]));
+            COMBINATION_ARRAY_LIST.add(new Combination(board[x][0], board[x][1], board[x][2]));
         }
-        combinations.add(new Combination(board[0][0], board[1][1], board[2][2]));
-        combinations.add(new Combination(board[2][0], board[1][1], board[0][2]));
+        COMBINATION_ARRAY_LIST.add(new Combination(board[0][0], board[1][1], board[2][2]));
+        COMBINATION_ARRAY_LIST.add(new Combination(board[2][0], board[1][1], board[0][2]));
 
-        return root;
+        return ROOT;
     }
 
     public static void main(String[] args) {
@@ -73,7 +73,7 @@ public class TicTacToe extends Application {
     }
 
     public static void checkState() {
-        for (Combination combination : combinations) {
+        for (Combination combination : COMBINATION_ARRAY_LIST) {
             if (combination.isComplete()) {
                 playable = false;
                 playWinAnimation(combination);
@@ -86,32 +86,32 @@ public class TicTacToe extends Application {
     }
 
     private static void playWinAnimation(Combination combination) {
-        winning.setFont(Font.font(200));
-        winning.setY(200);
-        winning.setStroke(Color.BLACK);
-        winning.setStrokeWidth(5);
+        WINNING.setFont(Font.font(200));
+        WINNING.setY(200);
+        WINNING.setStroke(Color.BLACK);
+        WINNING.setStrokeWidth(5);
 
         if (combination.getTiles()[0].getValue().equals("X")) {
-            winning.setText("X Wins");
-            winning.setFill(Color.GREEN);
+            WINNING.setText("X Wins");
+            WINNING.setFill(Color.GREEN);
         } else if (combination.getTiles()[0].getValue().equals("O")) {
-            winning.setText("O Wins");
-            winning.setFill(Color.RED);
+            WINNING.setText("O Wins");
+            WINNING.setFill(Color.RED);
         }
         System.out.println(numberOfMoves);
 
-        root.add(winning, 1, 0);
+        ROOT.add(WINNING, 1, 0);
 
     }
 
     private static void playDrawAnimation() {
-        drawing.setFont(Font.font(200));
-        drawing.setY(200);
-        drawing.setFill(Color.BLUE);
-        drawing.setStroke(Color.BLACK);
-        drawing.setStrokeWidth(5);
-        drawing.setText("DRAW");
-        root.add(drawing, 1, 0);
+        DRAWING.setFont(Font.font(200));
+        DRAWING.setY(200);
+        DRAWING.setFill(Color.BLUE);
+        DRAWING.setStroke(Color.BLACK);
+        DRAWING.setStrokeWidth(5);
+        DRAWING.setText("DRAW");
+        ROOT.add(DRAWING, 1, 0);
     }
 
     public static void botMoves() {
@@ -128,17 +128,17 @@ public class TicTacToe extends Application {
                         BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
-        root.setBackground(background);
-        root.setAlignment(Pos.CENTER);
-        root.setVgap(10);
-        root.setHgap(10);
+        ROOT.setBackground(background);
+        ROOT.setAlignment(Pos.CENTER);
+        ROOT.setVgap(10);
+        ROOT.setHgap(10);
 
-        whichSideIsPlayerOn.setStroke(Color.BLACK);
-        whichSideIsPlayerOn.setStrokeWidth(1);
-        whichSideIsPlayerOn.setFill(Color.WHITE);
-        whichSideIsPlayerOn.setFont(Font.font(50));
+        WHICH_SIDE_IS_PLAYER_ON.setStroke(Color.BLACK);
+        WHICH_SIDE_IS_PLAYER_ON.setStrokeWidth(1);
+        WHICH_SIDE_IS_PLAYER_ON.setFill(Color.WHITE);
+        WHICH_SIDE_IS_PLAYER_ON.setFont(Font.font(50));
 
-        root.add(whichSideIsPlayerOn, 0, 1);
+        ROOT.add(WHICH_SIDE_IS_PLAYER_ON, 0, 1);
 
         Button newGameButton = new Button("New Game");
         newGameButton.setFont(Font.font(20));
@@ -147,8 +147,8 @@ public class TicTacToe extends Application {
             playerXTurn = true;
             playable = true;
             numberOfMoves = 0;
-            winning.setText(null);
-            drawing.setText(null);
+            WINNING.setText(null);
+            DRAWING.setText(null);
             for (int i = 0; i < 9; i++) {
                 ((Tile) TicTacToe.tileGroup.getChildren().get(i)).cleanTile();
             }
@@ -173,7 +173,7 @@ public class TicTacToe extends Application {
                 playerOneIsX = true;
                 playerSide = "X";
             }
-            whichSideIsPlayerOn.setText("You are playing as " + playerSide);
+            WHICH_SIDE_IS_PLAYER_ON.setText("You are playing as " + playerSide);
             System.out.println("CSB playerXturn before botMoves " + playerXTurn);
             System.out.println("CSB playerSide before botMoves " + playerSide);
             System.out.println();
@@ -190,7 +190,7 @@ public class TicTacToe extends Application {
         buttonBox.getChildren().addAll(newGameButton, changeSidesButton);
         buttonBox.setAlignment(Pos.CENTER);
 
-        root.add(buttonBox, 2, 1);
+        ROOT.add(buttonBox, 2, 1);
 
         Scene scene = new Scene(createContent(), 1600, 1200);
 

@@ -14,7 +14,7 @@ public class Tile extends StackPane {
     private final Text text = new Text();
 
     public Tile() {
-        Rectangle border = new Rectangle(TicTacToe.tileSize, TicTacToe.tileSize);
+        Rectangle border = new Rectangle(TicTacToe.TILE_SIZE, TicTacToe.TILE_SIZE);
 
         border.setStroke(Color.BLACK);
         border.setFill(Color.WHITE);
