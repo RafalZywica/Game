@@ -141,28 +141,22 @@ public class TicTacToe extends Application {
         ROOT.add(WHICH_SIDE_IS_PLAYER_ON, 0, 1);
 
         Button newGameButton = new Button("New Game");
-        newGameButton.setFont(Font.font(20));
-        newGameButton.setMinWidth(200);
-        newGameButton.setOnAction(value -> {
-            playerXTurn = true;
-            playable = true;
-            numberOfMoves = 0;
-            WINNING.setText(null);
-            DRAWING.setText(null);
-            for (int i = 0; i < 9; i++) {
-                ((Tile) TicTacToe.tileGroup.getChildren().get(i)).cleanTile();
-            }
-            System.out.println("NGB playerXturn before botMoves " + playerXTurn);
-            System.out.println("NGB playerSide before botMoves " + playerSide);
-
-            if (!playerOneIsX) {
-                botMoves();
-            }
-            System.out.println("NGB playerXturn after botMoves " + playerXTurn);
-            System.out.println("NGB playerSide after botMoves " + playerSide);
-            System.out.println();
-        });
+        newGameButtonMethod(newGameButton);
         Button changeSidesButton = new Button("Change Sides");
+        changeSidesButtonMethod(changeSidesButton);
+        buttonBox.getChildren().addAll(newGameButton, changeSidesButton);
+        buttonBox.setAlignment(Pos.CENTER);
+
+        ROOT.add(buttonBox, 2, 1);
+
+        Scene scene = new Scene(createContent(), 1600, 1200);
+
+        primaryStage.setTitle("TicTacToe");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private void changeSidesButtonMethod(Button changeSidesButton) {
         changeSidesButton.setFont(Font.font(20));
         changeSidesButton.setMinWidth(200);
         changeSidesButton.setOnAction(value -> {
@@ -174,9 +168,6 @@ public class TicTacToe extends Application {
                 playerSide = "X";
             }
             WHICH_SIDE_IS_PLAYER_ON.setText("You are playing as " + playerSide);
-            System.out.println("CSB playerXturn before botMoves " + playerXTurn);
-            System.out.println("CSB playerSide before botMoves " + playerSide);
-            System.out.println();
 
             if (!playerOneIsX && playerXTurn) {
                 botMoves();
@@ -184,18 +175,25 @@ public class TicTacToe extends Application {
             if (playerOneIsX && !playerXTurn) {
                 botMoves();
             }
-            System.out.println("CSB playerXturn after botMoves " + playerXTurn);
-            System.out.println("CSB playerSide after botMoves " + playerSide);
         });
-        buttonBox.getChildren().addAll(newGameButton, changeSidesButton);
-        buttonBox.setAlignment(Pos.CENTER);
+    }
 
-        ROOT.add(buttonBox, 2, 1);
+    private void newGameButtonMethod(Button newGameButton) {
+        newGameButton.setFont(Font.font(20));
+        newGameButton.setMinWidth(200);
+        newGameButton.setOnAction(value -> {
+            playerXTurn = true;
+            playable = true;
+            numberOfMoves = 0;
+            WINNING.setText(null);
+            DRAWING.setText(null);
+            for (int i = 0; i < 9; i++) {
+                ((Tile) TicTacToe.tileGroup.getChildren().get(i)).cleanTile();
+            }
 
-        Scene scene = new Scene(createContent(), 1600, 1200);
-
-        primaryStage.setTitle("TicTacToe");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+            if (!playerOneIsX) {
+                botMoves();
+            }
+        });
     }
 }
