@@ -25,7 +25,7 @@ public class TicTacToe extends Application {
     public static boolean playerXTurn = true, playable = true, playerOneIsX = true;
     public static int numberOfMoves = 0;
     private static String playerSide = new String("X");
-    private static Text whichSideIsPlayerOn = new Text("You are playing " + playerSide);
+    private static Text whichSideIsPlayerOn = new Text("You are playing as " + playerSide);
     private static Text winning = new Text(null);
     private static Text drawing = new Text();
     private Image imageback = new Image("file:src/main/resources/TicTacToeTexture.png");
@@ -155,6 +155,7 @@ public class TicTacToe extends Application {
 
         Button newGameButton = new Button("New Game");
         newGameButton.setFont(Font.font(20));
+        newGameButton.setMinWidth(200);
         newGameButton.setOnAction(value -> {
             /*if (playerOneIsX == true) {
                 playerXTurn = true;
@@ -183,6 +184,7 @@ public class TicTacToe extends Application {
 
         Button changeSidesButton = new Button("Change Sides");
         changeSidesButton.setFont(Font.font(20));
+        changeSidesButton.setMinWidth(200);
         changeSidesButton.setOnAction(value -> {
             if (playerOneIsX == true) {
                 playerOneIsX = false;
@@ -191,7 +193,7 @@ public class TicTacToe extends Application {
                 playerOneIsX = true;
                 playerSide = "X";
             }
-            whichSideIsPlayerOn.setText("You are playing " + playerSide);
+            whichSideIsPlayerOn.setText("You are playing as " + playerSide);
             System.out.println("CSB playerXturn before botMoves " + playerXTurn);
             System.out.println("CSB playerSide before botMoves " + playerSide);
             System.out.println("");
