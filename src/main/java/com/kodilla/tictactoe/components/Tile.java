@@ -42,7 +42,6 @@ public class Tile extends StackPane {
 
                 TicTacToe.checkState();
                 TicTacToe.botMoves();
-                System.out.println(TicTacToe.numberOfMoves);
             }
 
             /*else if (event.getButton() == MouseButton.SECONDARY) {
