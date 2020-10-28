@@ -8,13 +8,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.control.Button;
+import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +25,15 @@ public class TicTacToe extends Application {
     public static final int TILE_SIZE = 200;
     public static final int WIDTH = 3;
     public static final int HEIGHT = 3;
+    public static int totalXWins;
+    public static int totalOWins;
     public static boolean playerXTurn = true;
     public static boolean playable = true;
     public static boolean playerOneIsX = true;
     public static int numberOfMoves = 0;
-    private static String playerSide = "X";
-    private static final Text WHICH_SIDE_IS_PLAYER_ON = new Text("You are playing as " + playerSide);
+    public static final int TOP_TEXT_SIZE = 175;
+    private static final Text playerSide = new Text("X");
+    private static final Text WHICH_SIDE_IS_PLAYER_ON = new Text("You are playing as ");
     private static final Text WINNING = new Text();
     private static final Text DRAWING = new Text();
     private final Image imageBack = new Image("file:src/main/resources/TicTacToeTexture.png");
@@ -86,7 +90,7 @@ public class TicTacToe extends Application {
     }
 
     private static void playWinAnimation(Combination combination) {
-        WINNING.setFont(Font.font(200));
+        WINNING.setFont(Font.font(TOP_TEXT_SIZE));
         WINNING.setY(200);
         WINNING.setStroke(Color.BLACK);
         WINNING.setStrokeWidth(5);
@@ -94,17 +98,17 @@ public class TicTacToe extends Application {
         if (combination.getTiles()[0].getValue().equals("X")) {
             WINNING.setText("X Wins");
             WINNING.setFill(Color.GREEN);
+            totalXWins++;
         } else if (combination.getTiles()[0].getValue().equals("O")) {
             WINNING.setText("O Wins");
             WINNING.setFill(Color.RED);
+            totalOWins++;
         }
-
         ROOT.add(WINNING, 1, 0);
-
     }
 
     private static void playDrawAnimation() {
-        DRAWING.setFont(Font.font(200));
+        DRAWING.setFont(Font.font(TOP_TEXT_SIZE));
         DRAWING.setY(200);
         DRAWING.setFill(Color.BLUE);
         DRAWING.setStroke(Color.BLACK);
@@ -127,10 +131,7 @@ public class TicTacToe extends Application {
                         BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
-        ROOT.setBackground(background);
-        ROOT.setAlignment(Pos.CENTER);
-        ROOT.setVgap(10);
-        ROOT.setHgap(10);
+        ROOT_CONFIG(background);
 
         WHICH_SIDE_IS_PLAYER_ON_CONFIG();
 
@@ -152,27 +153,48 @@ public class TicTacToe extends Application {
         primaryStage.show();
     }
 
+    private void ROOT_CONFIG(Background background) {
+        ROOT.setBackground(background);
+        ROOT.setAlignment(Pos.CENTER);
+        ROOT.setVgap(10);
+        ROOT.setHgap(10);
+    }
+
     private void WHICH_SIDE_IS_PLAYER_ON_CONFIG() {
         WHICH_SIDE_IS_PLAYER_ON.setStroke(Color.BLACK);
         WHICH_SIDE_IS_PLAYER_ON.setStrokeWidth(1);
         WHICH_SIDE_IS_PLAYER_ON.setFill(Color.WHITE);
         WHICH_SIDE_IS_PLAYER_ON.setFont(Font.font(50));
+        playerSide.setStroke(Color.BLACK);
+        playerSide.setStrokeWidth(1);
+        playerSide.setFont(Font.font(50));
+        playerSide.setFill(Color.GREEN);
+        TextFlow playerSideText = new TextFlow();
+        playerSideText.getChildren().addAll(WHICH_SIDE_IS_PLAYER_ON, playerSide);
+        GridPane playerSideTextGridPane = new GridPane();
+        playerSideTextGridPane.getChildren().add(playerSideText);
+        playerSideTextGridPane.setAlignment(Pos.TOP_CENTER);
 
-        ROOT.add(WHICH_SIDE_IS_PLAYER_ON, 0, 1);
+        ROOT.add(playerSideTextGridPane, 1, 2);
     }
 
     private void changeSidesButtonMethod(Button changeSidesButton) {
         changeSidesButton.setFont(Font.font(20));
         changeSidesButton.setMinWidth(200);
+        changeSidesButton.setStyle("-fx-font: 22 arial; -fx-base: #FFA4A4;");
         changeSidesButton.setOnAction(value -> {
             if (playerOneIsX) {
                 playerOneIsX = false;
-                playerSide = "O";
+                playerSide.setText("O");
+                playerSide.setFill(Color.RED);
+                changeSidesButton.setStyle("-fx-font: 22 arial; -fx-base: #b6e7c9;");
             } else {
                 playerOneIsX = true;
-                playerSide = "X";
+                playerSide.setText("X");
+                playerSide.setFill(Color.GREEN);
+                changeSidesButton.setStyle("-fx-font: 22 arial; -fx-base: #FFA4A4;");
             }
-            WHICH_SIDE_IS_PLAYER_ON.setText("You are playing as " + playerSide);
+            WHICH_SIDE_IS_PLAYER_ON.setText("You are playing as ");
 
             if (!playerOneIsX && playerXTurn) {
                 botMoves();
@@ -186,6 +208,7 @@ public class TicTacToe extends Application {
     private void newGameButtonMethod(Button newGameButton) {
         newGameButton.setFont(Font.font(20));
         newGameButton.setMinWidth(200);
+        newGameButton.setStyle("-fx-font: 22 arial; -fx-base: #b6e7c9;");
         newGameButton.setOnAction(value -> {
             playerXTurn = true;
             playable = true;
